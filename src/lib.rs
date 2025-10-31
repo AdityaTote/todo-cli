@@ -2,11 +2,12 @@ use serde::{Serialize, Deserialize};
 use std::{ fmt, fs::{self, read_to_string}, path::PathBuf };
 
 pub mod cli;
+pub mod run;
 
 #[derive(Debug)]
 pub enum SortOrder {
-    HighToLow,
-    LowToHigh
+    Asc,
+    Desc
 }
 
 #[derive(PartialEq, Debug, Serialize, Deserialize)]
@@ -157,10 +158,10 @@ impl TodoStore {
 
    pub fn get_todos_by_sorted_priority(&mut self, sort_ord: SortOrder) {
         match sort_ord {
-            SortOrder::HighToLow => {
+            SortOrder::Asc => {
                 self.todos.sort_by(|a, b| a.priority.cmp(&b.priority));
             }
-            SortOrder::LowToHigh => {
+            SortOrder::Desc => {
                 self.todos.sort_by(|a, b| b.priority.cmp(&a.priority));
             }
         }
@@ -275,9 +276,9 @@ Available commands:
         Lists todos filtered by status
         Example: todo list-status completed
 
-    sort [high-to-low | low-to-high]
+    sort [asc | desc]
         Sorts todos by priority
-        Example: todo sort high-to-low
+        Example: todo sort asc
 
     done [NAME]
         Marks a todo as completed
