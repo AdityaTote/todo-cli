@@ -1,6 +1,9 @@
 use serde::{Serialize, Deserialize};
 use std::{ fmt, fs::{self, read_to_string}, path::PathBuf };
 
+pub mod cli;
+
+#[derive(Debug)]
 pub enum SortOrder {
     HighToLow,
     LowToHigh
